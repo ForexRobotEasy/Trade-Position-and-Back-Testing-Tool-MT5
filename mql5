@@ -1,0 +1,71 @@
+
+// Trade Position and Back Testing Tool MT5
+// Developer's site: forexroboteasy.com
+// Development by: Forex Robot Easy Team
+
+// Include necessary libraries
+#include <Trade\Trade.mqh>
+
+// Define trade position and backtesting tool class
+class TradePositionAndBackTestingTool
+{
+private:
+   double entryPrice; // Entry price of the trade
+   double stopLoss; // Stop-loss level of the trade
+   double takeProfit; // Take-profit level of the trade
+   double riskRewardRatio; // Risk-reward ratio of the trade
+   double balance; // Account balance
+   double riskPercentage; // Percentage of risk per trade
+   
+public:
+   // Constructor
+   TradePositionAndBackTestingTool(double _riskPercentage)
+   {
+      riskPercentage = _riskPercentage;
+   }
+   
+   // Function to set trade parameters
+   void SetTradeParameters(double _entryPrice, double _stopLoss, double _takeProfit)
+   {
+      entryPrice = _entryPrice;
+      stopLoss = _stopLoss;
+      takeProfit = _takeProfit;
+   }
+   
+   // Function to calculate risk-reward ratio
+   void CalculateRiskRewardRatio()
+   {
+      riskRewardRatio = (entryPrice - stopLoss) / (takeProfit - entryPrice);
+   }
+   
+   // Function to calculate risk per trade
+   void CalculateRiskPerTrade()
+   {
+      double riskPerTrade = balance * (riskPercentage / 100);
+   }
+   
+   // Function to display trade position and levels
+   void DisplayTradePosition()
+   {
+      Print('Trade Position: Market Buy');
+      Print('Entry Price: ', entryPrice);
+      Print('Stop-Loss: ', stopLoss);
+      Print('Take-Profit: ', takeProfit);
+   }
+};
+
+// Entry point of the program
+void OnStart()
+{
+   // Create an instance of the trade position and backtesting tool
+   TradePositionAndBackTestingTool tool(2); // Assuming risk percentage as 2%
+   
+   // Set trade parameters
+   tool.SetTradeParameters(1.2345, 1.2300, 1.2400);
+   
+   // Calculate risk-reward ratio
+   tool.CalculateRiskRewardRatio();
+   
+   // Display trade position and levels
+   tool.DisplayTradePosition();
+}
